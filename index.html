@@ -3,352 +3,533 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Week 2 Meal Plan: Winter Comforts</title>
+    <meta name="theme-color" content="#2c3e50">
+    <title>Week 2: Winter Comforts</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary: #2c3e50;
-            --accent: #d35400; /* Orange/Warm for Winter */
-            --bg-light: #f9f9f9;
-            --border: #ddd;
+            --accent: #d35400;
+            --bg-light: #f8f9fa;
+            --text: #333;
+            --border: #e9ecef;
+            --success: #27ae60;
         }
+        
+        * { box-sizing: border-box; }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            background: var(--bg-light);
+            padding-bottom: 80px; /* Space for mobile nav */
+        }
+
+        /* Container */
+        .container {
             max-width: 850px;
             margin: 0 auto;
             padding: 20px;
             background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
         }
-        h1, h2, h3 {
-            color: var(--primary);
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 5px;
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 3px solid var(--accent);
+            margin-bottom: 30px;
         }
-        h1 { text-align: center; margin-bottom: 30px; border: none; font-size: 2.5em; color: var(--accent); }
-        
-        /* Tables */
-        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
-        th, td { border: 1px solid var(--border); padding: 10px; text-align: left; vertical-align: top; }
-        th { background-color: var(--primary); color: white; }
-        tr:nth-child(even) { background-color: var(--bg-light); }
+        h1 { margin: 0; color: var(--primary); font-size: 2.2rem; }
+        .subtitle { color: #666; font-style: italic; margin-top: 5px; }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 10px 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            background: var(--bg-light);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.2s;
+        }
+        .nav-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-btn:hover:not(.active) { background: #e2e6ea; }
 
         /* Sections */
-        .section { margin-bottom: 40px; page-break-inside: avoid; }
-        .recipe-card { border: 1px solid var(--border); padding: 20px; margin-bottom: 25px; border-radius: 8px; background: #fff; page-break-inside: avoid; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .recipe-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
-        .recipe-header h3 { border: none; padding: 0; margin: 0; font-size: 1.4em; }
-        
-        /* Ingredients List */
-        .ingredients { background: #fdfdfd; padding: 10px; border: 1px dashed #ccc; margin-bottom: 15px; font-size: 0.9em; }
-        .ingredients ul { margin: 0; padding-left: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
-        
-        /* Split Box */
-        .split-box { display: flex; gap: 15px; margin-top: 15px; }
-        .split-col { flex: 1; padding: 15px; border-radius: 8px; font-size: 0.95em; }
-        .person-a { background-color: #e8f5e9; border-left: 5px solid #2ecc71; } /* Veg */
-        .person-b { background-color: #fff3e0; border-left: 5px solid #f39c12; } /* Meat */
-        
-        /* Checkboxes */
-        .checkbox-list { list-style: none; padding: 0; }
-        .checkbox-list li { margin-bottom: 8px; }
-        .checkbox-list input { margin-right: 10px; }
+        .section { display: none; animation: fadeIn 0.3s ease; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Print Styles */
+        h2 { color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 10px; margin-top: 0; }
+
+        /* Menu Table */
+        .menu-table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .menu-table th, .menu-table td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border); }
+        .menu-table th { background: var(--primary); color: white; }
+        .menu-table tr:last-child td { border-bottom: none; }
+        
+        /* Recipe Cards */
+        .recipe-card { 
+            border: 1px solid var(--border); 
+            padding: 20px; 
+            margin-bottom: 25px; 
+            border-radius: 12px; 
+            background: #fff; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .recipe-card:hover { transform: translateY(-2px); }
+        
+        .recipe-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .recipe-header h3 { margin: 0; color: var(--accent); }
+        .time-badge { background: var(--bg-light); padding: 5px 12px; border-radius: 15px; font-size: 0.85rem; font-weight: bold; color: #555; }
+
+        .ingredients { background: #fff8f0; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--accent); }
+        .ingredients ul { margin: 0; padding-left: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+
+        /* Split Box */
+        .split-box { display: flex; gap: 20px; margin-top: 20px; }
+        .split-col { flex: 1; padding: 15px; border-radius: 10px; position: relative; }
+        .person-a { background-color: #e8f5e9; border: 1px solid #c8e6c9; }
+        .person-b { background-color: #fff3e0; border: 1px solid #ffe0b2; }
+        .split-label { font-weight: bold; display: block; margin-bottom: 8px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .person-a .split-label { color: #2ecc71; }
+        .person-b .split-label { color: #f39c12; }
+
+        /* Interactive Shopping List */
+        .shopping-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .shopping-category h3 { color: var(--accent); border-bottom: none; margin-bottom: 10px; }
+        
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: white;
+            border: 1px solid var(--border);
+            margin-bottom: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+        .todo-item:hover { background: #f8f9fa; border-color: #ccc; }
+        .todo-item.checked {
+            background: #f1f3f5;
+            color: #adb5bd;
+            text-decoration: line-through;
+            border-color: transparent;
+        }
+        .todo-checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .todo-item.checked .todo-checkbox { background: var(--success); border-color: var(--success); }
+        .todo-item.checked .todo-checkbox::after { content: '✓'; color: white; font-weight: bold; }
+
+        /* FAB (Floating Action Button) for Print/Reset */
+        .fab-container { position: fixed; bottom: 30px; right: 30px; display: flex; gap: 15px; z-index: 1000; }
+        .fab {
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+        .fab:hover { transform: scale(1.1); }
+        .fab.reset { background: #c0392b; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .split-box { flex-direction: column; gap: 10px; }
+            h1 { font-size: 1.8rem; }
+            .menu-table { display: block; overflow-x: auto; }
+            .nav-btn { padding: 8px 15px; font-size: 0.9rem; }
+        }
+
         @media print {
-            body { padding: 0; font-size: 11pt; }
-            h1 { font-size: 18pt; margin-bottom: 10px; }
-            .no-print { display: none; }
-            .page-break { page-break-before: always; }
-            .split-box { display: block; }
-            .split-col { margin-bottom: 10px; border: 1px solid #ccc; }
-            .recipe-card { break-inside: avoid; }
+            .nav-tabs, .fab-container { display: none !important; }
+            .section { display: block !important; }
+            body { padding: 0; background: white; }
+            .container { box-shadow: none; max-width: 100%; }
+            .recipe-card { break-inside: avoid; border: 1px solid #ccc; box-shadow: none; }
+            .todo-item { border: none; padding: 5px 0; }
+            .todo-item.checked { text-decoration: none; color: black; }
+            .todo-checkbox { border: 1px solid #000; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
+<div class="container">
     <header>
         <h1>Week 2: Winter Comforts</h1>
-        <p style="text-align: center; font-style: italic;">Detailed Instructions • Udit (Veg) & Maddie (Meat)</p>
+        <div class="subtitle">Udit (Veg) & Maddie (Meat) • Ottawa Edition</div>
     </header>
 
-    <!-- Weekly Overview -->
-    <div class="section">
-        <h2>📅 Menu at a Glance</h2>
-        <table>
+    <!-- Navigation -->
+    <div class="nav-tabs no-print">
+        <button class="nav-btn active" onclick="switchTab('plan')">📅 Plan</button>
+        <button class="nav-btn" onclick="switchTab('recipes')">🍳 Recipes</button>
+        <button class="nav-btn" onclick="switchTab('list')">🛒 List</button>
+    </div>
+
+    <!-- PLAN TAB -->
+    <div id="plan" class="section active">
+        <h2>Weekly Overview</h2>
+        <table class="menu-table">
             <thead>
                 <tr>
-                    <th style="width: 15%;">Day</th>
-                    <th>The Meal</th>
-                    <th style="width: 25%;">Udit (Veg)</th>
-                    <th style="width: 25%;">Maddie (Meat)</th>
+                    <th>Day</th>
+                    <th>Meal</th>
+                    <th>Udit (Veg)</th>
+                    <th>Maddie (Meat)</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><strong>MON</strong></td>
-                    <td>Sausage Sheet Pan</td>
-                    <td>Veggie Sausages + Beans</td>
-                    <td>Italian Sausages</td>
-                </tr>
-                <tr>
-                    <td><strong>TUE</strong></td>
-                    <td>Crispy Roast Chicken</td>
-                    <td>Roasted Tempeh/Tofu</td>
-                    <td>Chicken Leg Quarters</td>
-                </tr>
-                <tr>
-                    <td><strong>WED</strong></td>
-                    <td>Creamy Rosé Pasta</td>
-                    <td>Side Salad + Lentils</td>
-                    <td>Side Caesar + Bacon</td>
-                </tr>
-                <tr>
-                    <td><strong>THU</strong></td>
-                    <td>Steak & Toor Dal</td>
-                    <td>Toor Dal (Dhaba Style)</td>
-                    <td>Seared Steak + Asparagus</td>
-                </tr>
-                <tr>
-                    <td><strong>FRI</strong></td>
-                    <td>Mini Naan Pizzas</td>
-                    <td>Mushroom/Veggie</td>
-                    <td>Pepperoni/Sausage</td>
-                </tr>
+                <tr><td>MON</td><td>Sausage Sheet Pan</td><td>Veggie Sausages</td><td>Italian Sausages</td></tr>
+                <tr><td>TUE</td><td>Roast Chicken</td><td>Tempeh/Tofu</td><td>Chicken Legs</td></tr>
+                <tr><td>WED</td><td>Rosé Pasta</td><td>Lentils + Salad</td><td>Bacon + Caesar</td></tr>
+                <tr><td>THU</td><td>Steak & Dal</td><td>Toor Dal Tadka</td><td>Steak + Asparagus</td></tr>
+                <tr><td>FRI</td><td>Naan Pizzas</td><td>Mushroom/Veg</td><td>Pepperoni</td></tr>
             </tbody>
         </table>
+
+        <div class="recipe-card" style="margin-top: 30px;">
+            <div class="recipe-header">
+                <h3>☀️ Breakfast & Lunch Strategy</h3>
+            </div>
+            <div class="split-box">
+                <div class="split-col person-a">
+                    <span class="split-label">Udit (Home/Veg)</span>
+                    <ul>
+                        <li><strong>Breakfast:</strong> Greek Yogurt + Red Grapes (Sale!).</li>
+                        <li><strong>Lunch:</strong> Leftover Dal or Pasta.</li>
+                    </ul>
+                </div>
+                <div class="split-col person-b">
+                    <span class="split-label">Maddie (Office/Meat)</span>
+                    <ul>
+                        <li><strong>Breakfast:</strong> Berry Blast Smoothie.</li>
+                        <li><strong>Office Lunch:</strong> Leftover Roast Chicken Caesar Salad.</li>
+                        <li><strong>Snack:</strong> Red Grapes & Cheese Strings.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="page-break"></div>
+    <!-- RECIPES TAB -->
+    <div id="recipes" class="section">
+        <h2>Detailed Instructions</h2>
 
-    <!-- Recipes -->
-    <div class="section">
-        <h2>🍳 Detailed Step-by-Step Recipes</h2>
-
-        <!-- Monday -->
+        <!-- MON -->
         <div class="recipe-card">
             <div class="recipe-header">
                 <h3>MON: Sausage & Pepper Sheet Pan</h3>
-                <span>⏳ 35 Mins (Oven: 400°F)</span>
+                <span class="time-badge">35m • 400°F</span>
             </div>
             <div class="ingredients">
-                <strong>Ingredients:</strong>
-                <ul>
-                    <li>3 Bell Peppers (Use Home Stock)</li>
-                    <li>1 Onion (Wedges)</li>
-                    <li>Italian Sausages (M)</li>
-                    <li>Canned Beans (U)</li>
-                    <li>Olive Oil, Oregano</li>
-                </ul>
+                <strong>Ingredients:</strong> Peppers (Home), Onion, Italian Sausages (M), Veg Sausages/Beans (U), Oregano.
             </div>
-            <p><strong>1. Prep:</strong> Preheat oven to 400°F. Toss peppers and onions on a large baking sheet with oil, salt, and oregano.</p>
+            <p>1. Preheat oven to 400°F. Toss peppers and onion wedges on a sheet pan with oil/salt/oregano.</p>
             <div class="split-box">
                 <div class="split-col person-a">
-                    <strong>Udit (Veg)</strong><br>
-                    Place Veggie Sausages (or drained <strong>Canned Beans</strong>) on the LEFT side. (Prick sausages with fork).
+                    <span class="split-label">Udit</span>
+                    Place Veggie Sausages on LEFT side (prick with fork).
                 </div>
                 <div class="split-col person-b">
-                    <strong>Maddie (Meat)</strong><br>
-                    Place Meat Sausages on the RIGHT side.
+                    <span class="split-label">Maddie</span>
+                    Place Meat Sausages on RIGHT side.
                 </div>
             </div>
-            <p><strong>2. Cook:</strong> Roast for 25-30 minutes, flipping sausages halfway, until veggies are soft and meat is browned.</p>
+            <p style="margin-top:15px">2. Roast 25-30 mins, flipping halfway.</p>
         </div>
 
-        <!-- Tuesday -->
+        <!-- TUE -->
         <div class="recipe-card">
             <div class="recipe-header">
-                <h3>TUE: Crispy Roast Chicken (Metro Deal)</h3>
-                <span>⏳ 45 Mins (Oven: 400°F)</span>
+                <h3>TUE: Crispy Roast Chicken</h3>
+                <span class="time-badge">45m • 400°F</span>
             </div>
             <div class="ingredients">
-                <strong>Ingredients:</strong>
-                <ul>
-                    <li>Chicken Leg Quarters</li>
-                    <li>Tempeh or Firm Tofu</li>
-                    <li>Sweet Potatoes (Cubed)</li>
-                    <li>Broccoli Florets</li>
-                    <li>Paprika, Garlic Powder</li>
-                </ul>
+                <strong>Ingredients:</strong> Chicken Legs, Tempeh, Sweet Potato, Broccoli, Paprika.
             </div>
-            <p><strong>1. Prep:</strong> Toss cubed Sweet Potatoes with oil/salt. Spread on baking sheet. Bake for 10 mins while prepping protein.</p>
+            <p>1. Roast cubed Sweet Potatoes with oil/salt for 10 mins at 400°F.</p>
             <div class="split-box">
                 <div class="split-col person-a">
-                    <strong>Udit (Veg)</strong><br>
-                    Cube Tempeh/Tofu. Toss with oil, soy sauce, and paprika. Add to one corner of the pan after 10 mins.
+                    <span class="split-label">Udit</span>
+                    Add cubed Tempeh (tossed in soy/oil) to pan corner.
                 </div>
                 <div class="split-col person-b">
-                    <strong>Maddie (Meat)</strong><br>
-                    Rub Chicken Legs with oil, salt, pepper, garlic powder, paprika. Place skin-side up on the pan.
+                    <span class="split-label">Maddie</span>
+                    Add Seasoned Chicken Legs skin-up to pan center.
                 </div>
             </div>
-            <p><strong>2. Cook:</strong> Roast everything together for 30 mins. Add <strong>Broccoli</strong> in the last 15 mins. Cook until chicken skin is crispy.</p>
+            <p style="margin-top:15px">2. Roast 30 mins more. Add Broccoli in last 15 mins.</p>
         </div>
 
-        <!-- Wednesday -->
+        <!-- WED -->
         <div class="recipe-card">
             <div class="recipe-header">
-                <h3>WED: Creamy Rosé Pasta & Caesar Salad</h3>
-                <span>⏳ 15 Mins</span>
+                <h3>WED: Creamy Rosé Pasta</h3>
+                <span class="time-badge">15m • Stovetop</span>
             </div>
-            <div class="ingredients">
-                <strong>Ingredients:</strong>
-                <ul>
-                    <li>Penne Pasta</li>
-                    <li>Jar of Marinara</li>
-                    <li>Heavy Cream</li>
-                    <li>Spinach</li>
-                    <li>Bacon (M) / Romaine (M)</li>
-                </ul>
-            </div>
-            <p><strong>1. The Base (Pink Sauce):</strong> Boil pasta. In a large pan, simmer marinara sauce. Stir in 1/4 cup cream and handfuls of spinach until wilted.</p>
+            <p>1. Boil Pasta. Simmer Marinara + Cream + Spinach in a large pan.</p>
             <div class="split-box">
                 <div class="split-col person-a">
-                    <strong>Udit (Veg)</strong><br>
-                    Stir in 1/2 cup <strong>Canned Beans/Lentils</strong> (rinsed) for protein. Serve with a simple side salad.
+                    <span class="split-label">Udit</span>
+                    Stir in rinsed Canned Beans/Lentils. Serve with Green Salad.
                 </div>
                 <div class="split-col person-b">
-                    <strong>Maddie (Meat)</strong><br>
-                    1. Fry chopped Bacon until crispy. Drain fat.<br>
-                    2. <strong>Side Caesar:</strong> Chop <strong>Romaine Lettuce</strong>. Toss with Caesar dressing (or Mayo/Lemon/Parm/Garlic). Top with Bacon bits!
+                    <span class="split-label">Maddie</span>
+                    Top with crispy Bacon. Serve with Romaine Caesar Salad.
                 </div>
             </div>
         </div>
 
-        <!-- Thursday -->
+        <!-- THU -->
         <div class="recipe-card">
             <div class="recipe-header">
-                <h3>THU: Steak & Dhaba Style Dal</h3>
-                <span>⏳ 25 Mins</span>
+                <h3>THU: Steak & Dhaba Dal</h3>
+                <span class="time-badge">25m • Stovetop</span>
             </div>
-             <div class="ingredients">
-                <strong>Needs:</strong> Steak (Home), Asparagus (Home), Toor Dal, Rice.
-            </div>
-            <p><strong>1. The Base:</strong> Cook a pot of Rice (Basmati).</p>
             <div class="split-box">
                 <div class="split-col person-a">
-                    <strong>Udit (Toor Dal Tadka)</strong><br>
-                    1. Boil 1 cup Toor Dal with turmeric & salt until soft (30 mins). Whisk to mash slightly.<br>
-                    2. <strong>The "Tadka" (Tempering):</strong> In a small pan, heat 1 tbsp Ghee/Oil. Add 1 tsp cumin seeds, 2 minced garlic cloves, and a dried chili. Let sizzle for 30 secs.<br>
-                    3. Pour hot oil mix over the Dal immediately. Cover for 2 mins to trap aroma.
+                    <span class="split-label">Udit (Dal Tadka)</span>
+                    1. Boil Toor Dal w/ turmeric until soft.<br>
+                    2. <strong>Tadka:</strong> Sizzle cumin, garlic, chili in hot ghee.<br>
+                    3. Pour sizzling oil over Dal.
                 </div>
                 <div class="split-col person-b">
-                    <strong>Maddie (Steak)</strong><br>
-                    1. Season <strong>Steak</strong> heavily with Salt & Pepper.<br>
-                    2. Sear in hot pan with butter/oil (3-4 mins per side). Rest for 5 mins.<br>
-                    3. Sauté <strong>Asparagus</strong> in the steak juices for 3 mins. Serve with side salad if desired.
+                    <span class="split-label">Maddie (Steak)</span>
+                    1. Sear Steak in hot butter (3m/side).<br>
+                    2. Sauté Asparagus in pan juices.<br>
+                    3. Rest meat 5 mins.
                 </div>
             </div>
         </div>
-        
-        <!-- Friday -->
-         <div class="recipe-card">
+
+        <!-- FRI -->
+        <div class="recipe-card">
             <div class="recipe-header">
                 <h3>FRI: Mini Naan Pizzas</h3>
-                <span>⏳ 15 Mins (Oven: 425°F)</span>
+                <span class="time-badge">15m • 425°F</span>
             </div>
-            <p><strong>1. Assemble:</strong> Place Mini Naans on rack. Spread with Pizza Sauce.</p>
+            <p>Assemble on Mini Naans with Sauce + Mozzarella. Bake 10-12 mins.</p>
             <div class="split-box">
                 <div class="split-col person-a">
-                    <strong>Udit (Veg)</strong><br>
-                    Top with Mozzarella, Mushrooms, Peppers, Olives.
+                    <span class="split-label">Udit</span>
+                    Toppings: Mushroom, Peppers, Olives.
                 </div>
                 <div class="split-col person-b">
-                    <strong>Maddie (Meat)</strong><br>
-                    Top with Mozzarella, Pepperoni slices or crumbled Sausage.
+                    <span class="split-label">Maddie</span>
+                    Toppings: Pepperoni / Sausage crumbles.
                 </div>
             </div>
-            <p><strong>2. Bake:</strong> 10-12 minutes until cheese bubbles.</p>
         </div>
     </div>
 
-    <div class="page-break"></div>
-    
-    <!-- Breakfast & Lunch Guide -->
-    <div class="section">
-        <h2>☀️ Breakfast & Lunch Plan</h2>
-        <div class="recipe-card">
-            <div class="recipe-header">
-                <h3>Breakfast (Repeated Daily)</h3>
-            </div>
-            <div class="split-box">
-                <div class="split-col person-a">
-                    <strong>Udit (Veg Options)</strong><br>
-                    • <strong>Yogurt & Grapes:</strong> Greek Yogurt + Red Grapes (Sale item).<br>
-                    • <strong>Toast:</strong> Peanut Butter or Avocado.
-                </div>
-                <div class="split-col person-b">
-                    <strong>Maddie (Smoothie)</strong><br>
-                    • <strong>Berry Blast:</strong> Continue using frozen berries + seeds.<br>
-                    • <strong>Weekend Treat:</strong> Bacon & Eggs (using the sale bacon).
-                </div>
-            </div>
-        </div>
-        <div class="recipe-card">
-            <div class="recipe-header">
-                <h3>Lunch (Office Days)</h3>
-            </div>
-            <p><strong>Maddie's Office Pack:</strong></p>
-            <ul>
-                <li><strong>Idea 1 (Chicken Caesar):</strong> Leftover Roast Chicken (Tue) + Chopped <strong>Romaine</strong> + Dressing container.</li>
-                <li><strong>Idea 2 (Wrap):</strong> Use large Romaine leaves as "cups" for leftover Sausage/Peppers.</li>
-                <li><strong>Snack:</strong> Red Grapes (washed and portioned).</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Final Shopping List -->
-    <div class="section">
-        <h2>🛒 Shopping List (Jan 26 - Feb 1)</h2>
-        <p><em>Prices based on Food Basics & Metro Flyers.</em></p>
+    <!-- LIST TAB -->
+    <div id="list" class="section">
+        <h2>🛒 Shopping List</h2>
+        <p style="margin-bottom: 20px; color: #666;">Tap items to cross them off. Progress is saved automatically!</p>
         
-        <table style="width: 100%; font-size: 0.9em;">
-            <tr>
-                <td style="width: 50%;">
-                    <h3>Produce</h3>
-                    <ul class="checkbox-list">
-                        <li><input type="checkbox"> <strong>Red Grapes</strong> ($1.98/lb Basics)</li>
-                        <li><input type="checkbox"> Sweet Potatoes (3-4 large)</li>
-                        <li><input type="checkbox"> Broccoli (1 head)</li>
-                        <li><input type="checkbox"> Spinach (Bag)</li>
-                        <li><input type="checkbox"> Onions & Garlic</li>
-                        <li><input type="checkbox"> Mushrooms (Small pack)</li>
-                        <li><input type="checkbox"> <strong>Check Pantry:</strong> Peppers, Asparagus</li>
-                        <li><input type="checkbox"> <strong>Have:</strong> Romaine Lettuce</li>
-                    </ul>
-                </td>
-                <td>
-                    <h3>Proteins & Dairy</h3>
-                    <ul class="checkbox-list">
-                        <li><input type="checkbox"> <strong>Chicken Leg Quarters</strong> (Metro $1.99/lb)</li>
-                        <li><input type="checkbox"> <strong>Bacon</strong> ($2.98 Basics)</li>
-                        <li><input type="checkbox"> <strong>Italian Sausages</strong> (Basics)</li>
-                        <li><input type="checkbox"> Veggie Sausages (Field Roast/Yves)</li>
-                        <li><input type="checkbox"> Tempeh or Tofu</li>
-                        <li><input type="checkbox"> Mozzarella Cheese</li>
-                        <li><input type="checkbox"> Heavy Cream (Small carton)</li>
-                        <li><input type="checkbox"> <strong>Have:</strong> Steak, Canned Beans</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <h3>Pantry</h3>
-                    <ul class="checkbox-list">
-                        <li><input type="checkbox"> <strong>Mini Naan Breads</strong> ($2.79 Basics)</li>
-                        <li><input type="checkbox"> <strong>Toor Dal (Dry Yellow Lentils)</strong></li>
-                        <li><input type="checkbox"> Pizza Sauce (Jar)</li>
-                        <li><input type="checkbox"> Marinara Sauce (Jar)</li>
-                        <li><input type="checkbox"> Penne Pasta</li>
-                        <li><input type="checkbox"> Soy Sauce, Ginger, Paprika, Oregano</li>
-                        <li><input type="checkbox"> <strong>Dressing:</strong> Mayo, Lemon, Parmesan (for Caesar)</li>
-                    </ul>
-                </td>
-            </tr>
-        </table>
+        <div class="shopping-grid">
+            <!-- Produce -->
+            <div class="shopping-category">
+                <h3>🥦 Produce</h3>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div><strong>Red Grapes</strong> ($1.98/lb Basics)</div>
+                </div>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div>Sweet Potatoes (3-4)</div>
+                </div>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div>Broccoli (1 head)</div>
+                </div>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div>Spinach (Bag)</div>
+                </div>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div>Onions & Garlic</div>
+                </div>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div>Mushrooms</div>
+                </div>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div><em>Have:</em> Peppers, Asparagus, Romaine</div>
+                </div>
+            </div>
+
+            <!-- Protein -->
+            <div class="shopping-category">
+                <h3>🥩 Proteins & Dairy</h3>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div><strong>Chicken Legs</strong> (Metro $1.99)</div>
+                </div>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div><strong>Bacon</strong> ($2.98 Basics)</div>
+                </div>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div>Italian Sausages (Basics)</div>
+                </div>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div>Veggie Sausages</div>
+                </div>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div>Tempeh or Tofu</div>
+                </div>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div>Mozzarella Cheese</div>
+                </div>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div>Heavy Cream</div>
+                </div>
+                 <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div><em>Have:</em> Steak, Canned Beans</div>
+                </div>
+            </div>
+
+            <!-- Pantry -->
+            <div class="shopping-category">
+                <h3>🥫 Pantry</h3>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div>Mini Naan Breads</div>
+                </div>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div>Toor Dal (Yellow Lentils)</div>
+                </div>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div>Marinara & Pizza Sauce</div>
+                </div>
+                <div class="todo-item" onclick="toggleItem(this)">
+                    <div class="todo-checkbox"></div>
+                    <div>Penne Pasta</div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+<!-- Floating Action Buttons -->
+<div class="fab-container no-print">
+    <button class="fab reset" onclick="resetList()" title="Reset List"><i class="fas fa-undo"></i></button>
+    <button class="fab" onclick="window.print()" title="Print"><i class="fas fa-print"></i></button>
+</div>
+
+<script>
+    // Tab Switching
+    function switchTab(tabId) {
+        // Hide all sections
+        document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+        
+        // Show selected
+        document.getElementById(tabId).classList.add('active');
+        
+        // Update Button Style
+        event.target.classList.add('active');
+        
+        // Save preference
+        localStorage.setItem('activeTab', tabId);
+    }
+
+    // List Logic
+    function toggleItem(el) {
+        el.classList.toggle('checked');
+        saveList();
+    }
+
+    function saveList() {
+        const items = document.querySelectorAll('.todo-item');
+        const state = [];
+        items.forEach((item, index) => {
+            if (item.classList.contains('checked')) {
+                state.push(index);
+            }
+        });
+        localStorage.setItem('groceryList', JSON.stringify(state));
+    }
+
+    function loadList() {
+        const saved = JSON.parse(localStorage.getItem('groceryList'));
+        if (saved) {
+            const items = document.querySelectorAll('.todo-item');
+            saved.forEach(index => {
+                if (items[index]) items[index].classList.add('checked');
+            });
+        }
+    }
+
+    function resetList() {
+        if(confirm('Uncheck all items?')) {
+            document.querySelectorAll('.todo-item').forEach(el => el.classList.remove('checked'));
+            saveList();
+        }
+    }
+
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+        loadList();
+        
+        // Restore last tab if desired, or default to Plan
+        // const lastTab = localStorage.getItem('activeTab');
+        // if(lastTab) switchTab(lastTab);
+    });
+</script>
 
 </body>
 </html>
