@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 2 Meal Plan: Winter Comforts</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #d35400; /* Orange/Warm for Winter */
+            --bg-light: #f9f9f9;
+            --border: #ddd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1, h2, h3 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 5px;
+        }
+        h1 { text-align: center; margin-bottom: 30px; border: none; font-size: 2.5em; color: var(--accent); }
+        
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
+        th, td { border: 1px solid var(--border); padding: 10px; text-align: left; vertical-align: top; }
+        th { background-color: var(--primary); color: white; }
+        tr:nth-child(even) { background-color: var(--bg-light); }
+
+        /* Sections */
+        .section { margin-bottom: 40px; page-break-inside: avoid; }
+        .recipe-card { border: 1px solid var(--border); padding: 20px; margin-bottom: 25px; border-radius: 8px; background: #fff; page-break-inside: avoid; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .recipe-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
+        .recipe-header h3 { border: none; padding: 0; margin: 0; font-size: 1.4em; }
+        
+        /* Ingredients List */
+        .ingredients { background: #fdfdfd; padding: 10px; border: 1px dashed #ccc; margin-bottom: 15px; font-size: 0.9em; }
+        .ingredients ul { margin: 0; padding-left: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+        
+        /* Split Box */
+        .split-box { display: flex; gap: 15px; margin-top: 15px; }
+        .split-col { flex: 1; padding: 15px; border-radius: 8px; font-size: 0.95em; }
+        .person-a { background-color: #e8f5e9; border-left: 5px solid #2ecc71; } /* Veg */
+        .person-b { background-color: #fff3e0; border-left: 5px solid #f39c12; } /* Meat */
+        
+        /* Checkboxes */
+        .checkbox-list { list-style: none; padding: 0; }
+        .checkbox-list li { margin-bottom: 8px; }
+        .checkbox-list input { margin-right: 10px; }
+
+        /* Print Styles */
+        @media print {
+            body { padding: 0; font-size: 11pt; }
+            h1 { font-size: 18pt; margin-bottom: 10px; }
+            .no-print { display: none; }
+            .page-break { page-break-before: always; }
+            .split-box { display: block; }
+            .split-col { margin-bottom: 10px; border: 1px solid #ccc; }
+            .recipe-card { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Week 2: Winter Comforts</h1>
+        <p style="text-align: center; font-style: italic;">Detailed Instructions • Udit (Veg) & Maddie (Meat)</p>
+    </header>
+
+    <!-- Weekly Overview -->
+    <div class="section">
+        <h2>📅 Menu at a Glance</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Day</th>
+                    <th>The Meal</th>
+                    <th style="width: 25%;">Udit (Veg)</th>
+                    <th style="width: 25%;">Maddie (Meat)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>MON</strong></td>
+                    <td>Sausage Sheet Pan</td>
+                    <td>Veggie Sausages</td>
+                    <td>Italian Sausages</td>
+                </tr>
+                <tr>
+                    <td><strong>TUE</strong></td>
+                    <td>Crispy Roast Chicken</td>
+                    <td>Roasted Tempeh/Tofu</td>
+                    <td>Chicken Leg Quarters</td>
+                </tr>
+                <tr>
+                    <td><strong>WED</strong></td>
+                    <td>Creamy Rosé Pasta</td>
+                    <td>Lentils in Sauce</td>
+                    <td>Crispy Bacon Bits</td>
+                </tr>
+                <tr>
+                    <td><strong>THU</strong></td>
+                    <td>Beef & Broccoli</td>
+                    <td>Edamame/Tofu</td>
+                    <td>Sirloin Strips</td>
+                </tr>
+                <tr>
+                    <td><strong>FRI</strong></td>
+                    <td>Mini Naan Pizzas</td>
+                    <td>Mushroom/Veggie</td>
+                    <td>Pepperoni/Sausage</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Recipes -->
+    <div class="section">
+        <h2>🍳 Detailed Step-by-Step Recipes</h2>
+
+        <!-- Monday -->
+        <div class="recipe-card">
+            <div class="recipe-header">
+                <h3>MON: Sausage & Pepper Sheet Pan</h3>
+                <span>⏳ 35 Mins (Oven: 400°F)</span>
+            </div>
+            <div class="ingredients">
+                <strong>Ingredients:</strong>
+                <ul>
+                    <li>3 Bell Peppers (Sliced)</li>
+                    <li>1 Onion (Wedges)</li>
+                    <li>Italian Sausages (M)</li>
+                    <li>Veggie Sausages (U)</li>
+                    <li>Olive Oil, Oregano</li>
+                </ul>
+            </div>
+            <p><strong>1. Prep:</strong> Preheat oven to 400°F. Toss peppers and onions on a large baking sheet with oil, salt, and oregano.</p>
+            <div class="split-box">
+                <div class="split-col person-a">
+                    <strong>Udit (Veg)</strong><br>
+                    Place Veggie Sausages on the LEFT side of the sheet. (Prick them with a fork first).
+                </div>
+                <div class="split-col person-b">
+                    <strong>Maddie (Meat)</strong><br>
+                    Place Meat Sausages on the RIGHT side.
+                </div>
+            </div>
+            <p><strong>2. Cook:</strong> Roast for 25-30 minutes, flipping sausages halfway, until veggies are soft and meat is browned.</p>
+        </div>
+
+        <!-- Tuesday -->
+        <div class="recipe-card">
+            <div class="recipe-header">
+                <h3>TUE: Crispy Roast Chicken (Metro Deal)</h3>
+                <span>⏳ 45 Mins (Oven: 400°F)</span>
+            </div>
+            <div class="ingredients">
+                <strong>Ingredients:</strong>
+                <ul>
+                    <li>Chicken Leg Quarters</li>
+                    <li>Tempeh or Firm Tofu</li>
+                    <li>Sweet Potatoes (Cubed)</li>
+                    <li>Green Beans</li>
+                    <li>Paprika, Garlic Powder</li>
+                </ul>
+            </div>
+            <p><strong>1. Prep:</strong> Toss cubed Sweet Potatoes with oil/salt. Spread on baking sheet. Bake for 10 mins while prepping protein.</p>
+            <div class="split-box">
+                <div class="split-col person-a">
+                    <strong>Udit (Veg)</strong><br>
+                    Cube Tempeh/Tofu. Toss with oil, soy sauce, and paprika. Add to one corner of the pan after 10 mins.
+                </div>
+                <div class="split-col person-b">
+                    <strong>Maddie (Meat)</strong><br>
+                    Rub Chicken Legs with oil, salt, pepper, garlic powder, paprika. Place skin-side up on the pan.
+                </div>
+            </div>
+            <p><strong>2. Cook:</strong> Roast everything together for another 35-40 minutes until chicken skin is crispy and potatoes are soft.</p>
+        </div>
+
+        <!-- Wednesday -->
+        <div class="recipe-card">
+            <div class="recipe-header">
+                <h3>WED: Creamy Rosé Pasta</h3>
+                <span>⏳ 15 Mins</span>
+            </div>
+            <div class="ingredients">
+                <strong>Ingredients:</strong>
+                <ul>
+                    <li>Penne Pasta</li>
+                    <li>Jar of Marinara</li>
+                    <li>Heavy Cream (or Coconut Milk)</li>
+                    <li>Spinach</li>
+                    <li>Bacon (M) / Lentils (U)</li>
+                </ul>
+            </div>
+            <p><strong>1. The Base:</strong> Boil pasta. In a large pan, heat marinara sauce. Stir in 1/4 cup cream and handfuls of spinach until wilted.</p>
+            <div class="split-box">
+                <div class="split-col person-a">
+                    <strong>Udit (Veg)</strong><br>
+                    Scoop out sauce/pasta into your bowl. Stir in 1/2 cup Canned Lentils (rinsed) for protein.
+                </div>
+                <div class="split-col person-b">
+                    <strong>Maddie (Meat)</strong><br>
+                    Fry chopped Bacon in a separate small pan until crispy. Drain fat. Top your pasta with bacon bits.
+                </div>
+            </div>
+        </div>
+
+        <!-- Thursday -->
+        <div class="recipe-card">
+            <div class="recipe-header">
+                <h3>THU: Beef & Broccoli Stir-Fry</h3>
+                <span>⏳ 20 Mins</span>
+            </div>
+             <div class="ingredients">
+                <strong>Sauce:</strong> 1/4 cup Soy Sauce + 1 tbsp Brown Sugar + 1 tsp Ginger + 1 tsp Sesame Oil.
+            </div>
+            <p><strong>1. Cook Veg:</strong> Stir fry Broccoli florets in hot oil/water until bright green. Remove.</p>
+            <div class="split-box">
+                <div class="split-col person-a">
+                    <strong>Udit (Veg)</strong><br>
+                    Stir fry Tofu cubes or Edamame. Add 1/3 of the sauce. Remove.
+                </div>
+                <div class="split-col person-b">
+                    <strong>Maddie (Meat)</strong><br>
+                    Slice Sirloin Tip thinly against the grain. Sear in hot pan (2 mins). Add 2/3 sauce.
+                </div>
+            </div>
+            <p><strong>To Finish:</strong> Serve over Rice. Toss broccoli back in to warm up.</p>
+        </div>
+        
+        <!-- Friday -->
+         <div class="recipe-card">
+            <div class="recipe-header">
+                <h3>FRI: Mini Naan Pizzas</h3>
+                <span>⏳ 15 Mins (Oven: 425°F)</span>
+            </div>
+            <p><strong>1. Assemble:</strong> Place Mini Naans on rack. Spread with Pizza Sauce.</p>
+            <div class="split-box">
+                <div class="split-col person-a">
+                    <strong>Udit (Veg)</strong><br>
+                    Top with Mozzarella, Mushrooms, Peppers, Olives.
+                </div>
+                <div class="split-col person-b">
+                    <strong>Maddie (Meat)</strong><br>
+                    Top with Mozzarella, Pepperoni slices or crumbled Sausage.
+                </div>
+            </div>
+            <p><strong>2. Bake:</strong> 10-12 minutes until cheese bubbles.</p>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+    
+    <!-- Breakfast & Lunch Guide -->
+    <div class="section">
+        <h2>☀️ Breakfast & Lunch Plan</h2>
+        <div class="recipe-card">
+            <div class="recipe-header">
+                <h3>Breakfast (Repeated Daily)</h3>
+            </div>
+            <div class="split-box">
+                <div class="split-col person-a">
+                    <strong>Udit (Veg Options)</strong><br>
+                    • <strong>Yogurt & Grapes:</strong> Greek Yogurt + Red Grapes (Sale item).<br>
+                    • <strong>Toast:</strong> Peanut Butter or Avocado.
+                </div>
+                <div class="split-col person-b">
+                    <strong>Maddie (Smoothie)</strong><br>
+                    • <strong>Berry Blast:</strong> Continue using frozen berries + seeds.<br>
+                    • <strong>Weekend Treat:</strong> Bacon & Eggs (using the sale bacon).
+                </div>
+            </div>
+        </div>
+        <div class="recipe-card">
+            <div class="recipe-header">
+                <h3>Lunch (Office Days)</h3>
+            </div>
+            <p><strong>Maddie's Office Pack:</strong></p>
+            <ul>
+                <li><strong>Main:</strong> Leftover Roast Chicken (Tue) or Sausage/Peppers (Mon).</li>
+                <li><strong>Snack 1:</strong> Red Grapes (washed and portioned).</li>
+                <li><strong>Snack 2:</strong> Cheese string or Hard boiled egg.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Final Shopping List -->
+    <div class="section">
+        <h2>🛒 Shopping List (Jan 26 - Feb 1)</h2>
+        <p><em>Prices based on Food Basics & Metro Flyers.</em></p>
+        
+        <table style="width: 100%; font-size: 0.9em;">
+            <tr>
+                <td style="width: 50%;">
+                    <h3>Produce</h3>
+                    <ul class="checkbox-list">
+                        <li><input type="checkbox"> <strong>Red Grapes</strong> ($1.98/lb Basics)</li>
+                        <li><input type="checkbox"> Sweet Potatoes (3-4 large)</li>
+                        <li><input type="checkbox"> Bell Peppers (3 pack)</li>
+                        <li><input type="checkbox"> Broccoli (1 head)</li>
+                        <li><input type="checkbox"> Spinach (Bag)</li>
+                        <li><input type="checkbox"> Onions & Garlic</li>
+                        <li><input type="checkbox"> Mushrooms (Small pack)</li>
+                    </ul>
+                </td>
+                <td>
+                    <h3>Proteins & Dairy</h3>
+                    <ul class="checkbox-list">
+                        <li><input type="checkbox"> <strong>Chicken Leg Quarters</strong> (Metro $1.99/lb)</li>
+                        <li><input type="checkbox"> <strong>Bacon</strong> ($2.98 Basics)</li>
+                        <li><input type="checkbox"> <strong>Italian Sausages</strong> (Basics)</li>
+                        <li><input type="checkbox"> <strong>Sirloin Tip Roast</strong> (Basics - ~1kg)</li>
+                        <li><input type="checkbox"> Veggie Sausages (Field Roast/Yves)</li>
+                        <li><input type="checkbox"> Tempeh or Tofu</li>
+                        <li><input type="checkbox"> Mozzarella Cheese</li>
+                        <li><input type="checkbox"> Heavy Cream (Small carton)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <h3>Pantry</h3>
+                    <ul class="checkbox-list">
+                        <li><input type="checkbox"> <strong>Mini Naan Breads</strong> ($2.79 Basics)</li>
+                        <li><input type="checkbox"> Pizza Sauce (Jar)</li>
+                        <li><input type="checkbox"> Marinara Sauce (Jar)</li>
+                        <li><input type="checkbox"> Penne Pasta</li>
+                        <li><input type="checkbox"> Canned Lentils (1 can)</li>
+                        <li><input type="checkbox"> Soy Sauce, Ginger, Paprika, Oregano</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>
