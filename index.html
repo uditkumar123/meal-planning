@@ -118,6 +118,10 @@
         .split-label { font-weight: bold; display: block; margin-bottom: 8px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
         .person-a .split-label { color: #2ecc71; }
         .person-b .split-label { color: #f39c12; }
+        
+        /* Steps */
+        .step { margin-bottom: 12px; padding-left: 15px; border-left: 3px solid #eee; }
+        .step strong { color: var(--accent); }
 
         /* Interactive Shopping List */
         .shopping-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
@@ -266,7 +270,7 @@
 
     <!-- RECIPES TAB -->
     <div id="recipes" class="section">
-        <h2>Detailed Instructions</h2>
+        <h2>Detailed Cooking Instructions</h2>
 
         <!-- MON -->
         <div class="recipe-card">
@@ -274,21 +278,25 @@
                 <h3>MON: Chicken & Pepper Sheet Pan</h3>
                 <span class="time-badge">30m • 400°F</span>
             </div>
-            <div class="ingredients">
-                <strong>Ingredients:</strong> Peppers (Home), Onion, Chicken Breast (M), Veg Sausages (U), Oregano.
+            <div class="step">
+                <strong>1. Prep Veggies:</strong> Cut 3 bell peppers into 1-inch thick strips. Cut onion into thick wedges. Toss in a large bowl with 1 tbsp olive oil, 1 tsp dried oregano, and 1/2 tsp salt. Spread on a large baking sheet.
             </div>
-            <p>1. Preheat oven to 400°F. Toss peppers and onion wedges on a sheet pan with oil/salt/oregano.</p>
-            <div class="split-box">
-                <div class="split-col person-a">
-                    <span class="split-label">Udit</span>
-                    Place Veggie Sausages on LEFT side (prick with fork).
-                </div>
-                <div class="split-col person-b">
-                    <span class="split-label">Maddie</span>
-                    Cut Chicken Breast into chunks. Toss with oil & herbs. Place on RIGHT side.
+            <div class="step">
+                <strong>2. Prep Proteins (The Split):</strong>
+                <div class="split-box" style="margin-top:5px; margin-bottom:5px;">
+                    <div class="split-col person-a">
+                        <span class="split-label">Udit</span>
+                        Place <strong>Veggie Sausages</strong> on the LEFT side. Prick each with a fork to prevent bursting.
+                    </div>
+                    <div class="split-col person-b">
+                        <span class="split-label">Maddie</span>
+                        Cut <strong>Chicken Breast</strong> into 1.5-inch chunks. Toss with 1 tsp oil + pinch salt/pepper. Place on RIGHT side.
+                    </div>
                 </div>
             </div>
-            <p style="margin-top:15px">2. Roast 20-25 mins until chicken is cooked through.</p>
+            <div class="step">
+                <strong>3. Roast:</strong> Bake at 400°F for <strong>20-25 minutes</strong>. Chicken is done when internal temp hits 165°F (no longer pink). Sausages should be browned.
+            </div>
         </div>
 
         <!-- TUE -->
@@ -297,21 +305,25 @@
                 <h3>TUE: Roasted Salmon Bowl</h3>
                 <span class="time-badge">35m • 400°F</span>
             </div>
-            <div class="ingredients">
-                <strong>Ingredients:</strong> Salmon Fillets, Tempeh, Sweet Potato, Broccoli.
+            <div class="step">
+                <strong>1. Roast Potatoes:</strong> Peel and cube 2 Sweet Potatoes (1-inch cubes). Toss with 1 tbsp oil + salt. Spread on baking sheet. Roast at 400°F for <strong>15 minutes</strong> first.
             </div>
-            <p>1. Roast cubed Sweet Potatoes with oil/salt for 15 mins at 400°F.</p>
-            <div class="split-box">
-                <div class="split-col person-a">
-                    <span class="split-label">Udit</span>
-                    Add cubed Tempeh (tossed in soy/oil) to pan.
-                </div>
-                <div class="split-col person-b">
-                    <span class="split-label">Maddie</span>
-                    Add Salmon Fillets (skin down, seasoned w/ lemon pepper) to pan.
+            <div class="step">
+                <strong>2. Add Proteins:</strong> Remove pan from oven. Push potatoes to the sides.
+                <div class="split-box" style="margin-top:5px; margin-bottom:5px;">
+                    <div class="split-col person-a">
+                        <span class="split-label">Udit</span>
+                        Add <strong>Tempeh/Tofu cubes</strong> (tossed in 1 tbsp soy sauce + 1 tsp oil) to one corner.
+                    </div>
+                    <div class="split-col person-b">
+                        <span class="split-label">Maddie</span>
+                        Add <strong>Salmon Fillets</strong> skin-side down in center. Rub with little oil + lemon pepper seasoning.
+                    </div>
                 </div>
             </div>
-            <p style="margin-top:15px">2. Roast 12-15 mins more until salmon flakes and potatoes are soft. Add Broccoli in last 10 mins.</p>
+            <div class="step">
+                <strong>3. Final Roast:</strong> Return to oven for <strong>12-15 minutes</strong>. Salmon is done when it flakes easily with a fork. Add broccoli florets for the last 10 minutes if you like them crunchy.
+            </div>
         </div>
 
         <!-- WED -->
@@ -320,15 +332,20 @@
                 <h3>WED: Creamy Rosé Pasta</h3>
                 <span class="time-badge">15m • Stovetop</span>
             </div>
-            <p>1. Boil Pasta. Simmer Marinara + Cream + Spinach in a large pan.</p>
+            <div class="step">
+                <strong>1. Pasta & Sauce:</strong> Boil 300g Penne pasta in salted water. While it boils, heat 1 jar Marinara sauce in a large skillet. Stir in 1/2 cup Heavy Cream and simmer gently. Add 2 huge handfuls of Spinach; stir until wilted (2 mins).
+            </div>
+            <div class="step">
+                <strong>2. Finish:</strong> Drain pasta and toss into the sauce.
+            </div>
             <div class="split-box">
                 <div class="split-col person-a">
                     <span class="split-label">Udit</span>
-                    Stir in rinsed Canned Beans/Lentils. Serve with Green Salad.
+                    Stir in 1/2 can of <strong>rinsed Lentils/Beans</strong> into your portion for protein. Serve with side green salad.
                 </div>
                 <div class="split-col person-b">
                     <span class="split-label">Maddie</span>
-                    Top with crispy Bacon. Serve with Romaine Caesar Salad.
+                    Fry 3 slices of chopped <strong>Bacon</strong> in a small pan until crispy. Sprinkle over pasta. Serve with side Caesar (Romaine + Dressing).
                 </div>
             </div>
         </div>
@@ -342,15 +359,15 @@
             <div class="split-box">
                 <div class="split-col person-a">
                     <span class="split-label">Udit (Dal Tadka)</span>
-                    1. Boil Toor Dal w/ turmeric until soft.<br>
-                    2. <strong>Tadka:</strong> Sizzle cumin, garlic, chili in hot ghee.<br>
-                    3. Pour sizzling oil over Dal.
+                    1. <strong>Boil:</strong> Rinse 1 cup Toor Dal. Boil with 3 cups water + 1/2 tsp turmeric + 1 tsp salt for 30 mins (or until mushy).<br>
+                    2. <strong>Tempering (Tadka):</strong> In a small pan, heat 1 tbsp Ghee/Oil. Add 1 tsp cumin seeds, 2 minced garlic cloves, and 1 dried chili. Let sizzle 30 secs until garlic is golden.<br>
+                    3. <strong>Serve:</strong> Pour sizzling oil into the Dal. Stir and cover. Serve with Rice.
                 </div>
                 <div class="split-col person-b">
                     <span class="split-label">Maddie (Steak)</span>
-                    1. Sear Steak in hot butter (3m/side).<br>
-                    2. Sauté Asparagus in pan juices.<br>
-                    3. Rest meat 5 mins.
+                    1. <strong>Prep:</strong> Pat Steak dry. Season heavily with Salt & Black Pepper.<br>
+                    2. <strong>Sear:</strong> Heat pan on High with butter. Sear steak 3-4 mins per side (medium-rare). Remove and let rest 5 mins.<br>
+                    3. <strong>Veg:</strong> Toss Asparagus in the hot pan juices for 3 mins.
                 </div>
             </div>
         </div>
@@ -361,16 +378,21 @@
                 <h3>FRI: Mini Naan Pizzas</h3>
                 <span class="time-badge">15m • 425°F</span>
             </div>
-            <p>Assemble on Mini Naans with Sauce + Mozzarella. Bake 10-12 mins.</p>
+            <div class="step">
+                <strong>1. Assemble:</strong> Preheat oven to 425°F. Place 4 Mini Naans on a wire rack or baking sheet. Spread 1 tbsp Pizza Sauce on each. Top with shredded Mozzarella.
+            </div>
             <div class="split-box">
                 <div class="split-col person-a">
                     <span class="split-label">Udit</span>
-                    Toppings: Mushroom, Peppers, Olives.
+                    Toppings: Sliced Mushrooms, Peppers, Olives.
                 </div>
                 <div class="split-col person-b">
                     <span class="split-label">Maddie</span>
-                    Toppings: Pepperoni.
+                    Toppings: Pepperoni slices.
                 </div>
+            </div>
+            <div class="step">
+                <strong>2. Bake:</strong> Bake for <strong>10-12 minutes</strong> until cheese is bubbly and golden brown.
             </div>
         </div>
     </div>
